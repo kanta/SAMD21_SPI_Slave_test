@@ -14,6 +14,7 @@ void setup() {
   pinMode(CS_PIN, OUTPUT);
   pinMode(ledPin, OUTPUT);
   SPI.begin();
+  SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
   SerialUSB.begin(9600);
   digitalWrite(CS_PIN, HIGH);
 }
@@ -21,6 +22,7 @@ void setup() {
 void sendData() {
   digitalWrite(ledPin, HIGH);
   digitalWrite(CS_PIN, LOW);
+  delay(5);
   #define TX_DATA_LEN 3
   for (uint8_t i=0; i<TX_DATA_LEN; i++) {
     spiRxBuf[i] = SPI.transfer(spiTxBuf[i]);
